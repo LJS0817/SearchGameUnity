@@ -7,12 +7,12 @@ public class Top : ViewController
 {
     Vector3 mousePos;
 
-    public delegate void ifWasFullEvent(Vector3 pos);
-    private ifWasFullEvent fullEvent;
+    public delegate void ChangePivotEvent(RectTransform rect);
+    private ChangePivotEvent cEvent;
 
-    public void setFullEvent(ifWasFullEvent e)
+    public void setFullEvent(ChangePivotEvent e)
     {
-        fullEvent = e;
+        cEvent = e;
     }
 
     public override void ViewEvent(RectTransform rect)
