@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Extended;
 
 
 public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
@@ -16,6 +17,11 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public bool isActivated;
     protected bool needChange;
     protected Image image;
+
+    [HideInInspector]
+    public Extend.dEvent ActiveEvent;
+    [HideInInspector]
+    public Extend.dEvent DisableEvent;
 
     void Start()
     {
@@ -38,10 +44,14 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    public virtual ViewController TriggerEvent()
+    public bool isClicked()
     {
-        isActivated = true;
-        return this;
+        return tempColor == targetColor && isActivated;
+    }
+
+    public void AddEvent(Extend.dEvent e)
+    {
+        ActiveEvent += e;
     }
 
     public virtual void OnPointerEnter(PointerEventData data)
