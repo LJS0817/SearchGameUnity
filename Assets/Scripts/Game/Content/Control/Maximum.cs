@@ -2,62 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Extended;
+
 
 public class Maximum : ViewController
 {
-    //Vector2 ScreenSize = new Vector2(Screen.width, Screen.height);
-    //Vector2 WindowSize = Vector2.zero;
+    private Vector2 _fulLScreen;
+    private Vector2 _currentSize;
+    private Vector2 _targetSize;
+    private Vector2 _currentPos;
 
-    //Vector2 BeforePos = Vector2.zero;
-    //readonly Vector2 FullPos = Vector2.zero;
+    bool _isFull;
 
-    //bool isFull = false;
+    protected override void init()
+    {
+        base.init();
+        _isFull = false;
+        _currentSize = _currentPos = Vector2.zero;
+        _fulLScreen = new Vector2(Screen.width, Screen.height);
+        _targetSize = Extend.DEFAULT_SIZE;
+    }
 
-    //Vector2 getSize()
-    //{
-    //    if (isFull) return WindowSize;
-    //    else return ScreenSize;
-    //}
+    public override void ViewEvent(RectTransform rect)
+    {
+        if (_isFull && _currentSize == Vector2.zero)
+        {
+            _currentSize = rect.sizeDelta;
+            _currentPos = rect.position;
+            rect.position = Vector3.zero;
+        } 
+        if(!_isFull && _currentPos != Vector2.zero)
+        {
+            rect.position = _currentPos;
+            _currentPos = Vector2.zero;
+        }
+        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, _targetSize, 9f * Time.deltaTime);
+        if(Mathf.Abs(rect.sizeDelta.magnitude - _targetSize.magnitude) < 10f)
+        {
+            isActivated = false;
+            rect.sizeDelta = _targetSize;
+        }
+    }
 
-    //Vector2 getPos()
-    //{
-    //    if (isFull) return BeforePos;
-    //    else return FullPos;
-    //}
-
-    //public override void ViewEvent(RectTransform rect)
-    //{
-    //    if (WindowSize == Vector2.zero) WindowSize = rect.sizeDelta;
-    //    if (BeforePos == Vector2.zero && !isFull) BeforePos = rect.position;
-
-    //    rect.position = Vector2.Lerp(rect.position, getPos(), 15f * Time.deltaTime);
-    //    rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, getSize(), 15f * Time.deltaTime);
-    //    if (Vector2.Distance(getSize(), rect.sizeDelta) < 0.5f)
-    //    {
-    //        rect.sizeDelta = getSize(); 
-    //        isFull = !isFull;
-    //        if (!isFull) BeforePos = Vector2.zero;
-    //        isActivated = false;
-    //    }
-    //}
-
-    //public override void OnPointerEnter(PointerEventData data)
-    //{
-    //    needChange = true;
-    //    tempColor = targetColor;
-    //}
-
-    //public override void OnPointerExit(PointerEventData data)
-    //{
-    //    needChange = true;
-    //    tempColor = sourceColor;
-    //}
-
-    //public override void OnPointerDown(PointerEventData data)
-    //{
-    //    isActivated = true;
-    //}
-
-    //public override void OnPointerUp(PointerEventData data) { }
-
+    public override void OnPointerUp(PointerEventData data)
+    {
+        base.OnPointerUp(data);
+        _isFull = !_isFull;
+        if (_isFull) _currentSize = Vector2.zero;
+        _targetSize = _isFull ? _fulLScreen : _currentSize;
+    }
 }

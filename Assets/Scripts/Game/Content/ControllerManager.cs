@@ -17,38 +17,35 @@ public class ControllerManager : MonoBehaviour
         _controllers = new ViewController[4];
         for(int i = 0; i < 4; i++)
         {
-            if(i == 0)
-            {
-                _controllers[i] = transform.GetChild(0).GetComponent<ViewController>();
-            } else
-            {
-                _controllers[i] = transform.GetChild(1).GetChild(i - 1).GetComponent<ViewController>();
-            }
-            _controllers[i].AddEvent(() => { 
-                if (_eventControllers != null) _eventControllers.DisableEvent(); 
-                _eventControllers = _controllers[i]; 
+            _controllers[i] = (i == 0) ? transform.GetChild(0).GetComponent<ViewController>() :
+                transform.GetChild(1).GetChild(i - 1).GetComponent<ViewController>();
+            _controllers[i].AddEvent(() => {
+                if (_eventControllers != null) _eventControllers.DisableEvent();
+                _eventControllers = _controllers[i];
             });
+            if (i == 0) continue;
+            _controllers[i].TargetColor = (i == 1) ? Extended.Extend.closeColor : Extended.Extend.hoverColor;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //currentEvent();
+        if(_eventControllers == null || !_eventControllers.isActivated)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                if (_controllers[i].isActivated) _eventControllers = _controllers[i];
+            }
+        }
     }
 
-    //void currentEvent()
-    //{
-    //    for (int i = 0; i < controllers.Length; i++)
-    //    {
-    //        if (controllers[i].isActivated && eventControllers[i] == null)
-    //        {
-    //            eventControllers[i] = controllers[i];
-    //        } else if (eventControllers[i] != null) {
-    //            eventControllers[i] = null; 
-    //        }
-    //    }
-    //}
+    public void CurrentEventUpdate(RectTransform rect)
+    {
+        if(_eventControllers != null)
+        {
+            _eventControllers.ViewEvent(rect);
+        }
+    }
 
     ///// <summary>
     ///// <para>0 == ¿Ãµø</para>

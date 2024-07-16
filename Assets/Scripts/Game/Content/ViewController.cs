@@ -9,14 +9,14 @@ using Extended;
 public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector]
-    public Color targetColor;
-    protected Color sourceColor;
-    protected Color tempColor;
+    public Color TargetColor;
+    protected Color _sourceColor;
+    protected Color _tempColor;
 
     [HideInInspector]
     public bool isActivated;
-    protected bool needChange;
-    protected Image image;
+    protected bool _needChange;
+    protected Image _image;
 
     [HideInInspector]
     public Extend.dEvent ActiveEvent;
@@ -25,28 +25,28 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void Start()
     {
-        image = GetComponent<Image>();
-        targetColor = sourceColor = image.color;
-        needChange = false;
-        isActivated = false;
+        init();
     }
 
     void Update()
     {
-        if(needChange)
+        if(_needChange)
         {
-            image.color = Color.Lerp(image.color, tempColor, 10f * Time.deltaTime);
-            if(Mathf.Abs((tempColor.r + tempColor.g + tempColor.b) - (image.color.r + image.color.g + image.color.b)) < 0.005f)
+            _image.color = Color.Lerp(_image.color, _tempColor, 10f * Time.deltaTime);
+            if(Mathf.Abs((_tempColor.r + _tempColor.g + _tempColor.b) - (_image.color.r + _image.color.g + _image.color.b)) < 0.005f)
             {
-                image.color = tempColor;
-                needChange = false;
+                _image.color = _tempColor;
+                _needChange = false;
             }
         }
     }
 
-    public bool isClicked()
+    protected virtual void init() 
     {
-        return tempColor == targetColor && isActivated;
+        _image = GetComponent<Image>();
+        TargetColor = _sourceColor = _image.color;
+        _needChange = false;
+        isActivated = false;
     }
 
     public void AddEvent(Extend.dEvent e)
@@ -56,25 +56,21 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public virtual void OnPointerEnter(PointerEventData data)
     {
-        needChange = true;
-        tempColor = targetColor;
+        _needChange = true;
+        _tempColor = TargetColor;
     }
 
     public virtual void OnPointerExit(PointerEventData data)
     {
-        needChange = true;
-        isActivated = false;
-        tempColor = sourceColor;
+        _needChange = true;
+        _tempColor = _sourceColor;
     }
 
-    public virtual void OnPointerDown(PointerEventData data)
-    {
-        isActivated = true;
-    }
+    public virtual void OnPointerDown(PointerEventData data) { }
 
     public virtual void OnPointerUp(PointerEventData data)
     {
-        isActivated = false;
+        isActivated = true;
     }
 
     public virtual void ViewEvent(RectTransform rect) { }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     //private string _name;
-    //RectTransform _rect;
+    RectTransform _rect;
     ControllerManager _controller;
     //Animator _ani;
 
@@ -14,7 +14,13 @@ public class View : MonoBehaviour
 
     private void Start()
     {
+        _rect = GetComponent<RectTransform>();
         _controller = transform.GetChild(0).GetComponent<ControllerManager>();
+    }
+
+    private void Update()
+    {
+        _controller.CurrentEventUpdate(_rect);
     }
 
     //public void SetDisable()
