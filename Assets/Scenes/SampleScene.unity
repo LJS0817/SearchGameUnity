@@ -282,7 +282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 99283707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4d2513d3bbcd24db59241759985a94, type: 3}
+  m_Script: {fileID: 11500000, guid: 369164b842f196e49937e6a36d4ee5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &146671544
@@ -373,8 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c62cc6d80debab4abd51d80be9d4107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
+  TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
+  Id: 
 --- !u!1 &199951221
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,8 +464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4326a660cc10732498f5eb0f20d16956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
+  TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
+  Id: 
 --- !u!1 &205999873
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,8 +555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c653fb21a5e1f479996714712b2b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
+  TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
+  Id: 
 --- !u!1 &338854738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,8 +1242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b2e461eed7b5f40b3eede9af606655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
+  TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
+  Id: 
 --- !u!1 &2045911803
 GameObject:
   m_ObjectHideFlags: 0

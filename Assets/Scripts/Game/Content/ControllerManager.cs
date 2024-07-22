@@ -15,13 +15,16 @@ public class ControllerManager : MonoBehaviour
         _eventControllers = null;
 
         _controllers = new ViewController[4];
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             _controllers[i] = (i == 0) ? transform.GetChild(0).GetComponent<ViewController>() :
                 transform.GetChild(1).GetChild(i - 1).GetComponent<ViewController>();
+            _controllers[i].init(transform.parent.name);
+
+            int idx = i;
             _controllers[i].AddEvent(() => {
                 if (_eventControllers != null) _eventControllers.DisableEvent();
-                _eventControllers = _controllers[i];
+                _eventControllers = _controllers[idx];
             });
             if (i == 0) continue;
             _controllers[i].TargetColor = (i == 1) ? Extended.Extend.closeColor : Extended.Extend.hoverColor;
@@ -29,14 +32,8 @@ public class ControllerManager : MonoBehaviour
     }
 
     private void Update()
-    {
-        if(_eventControllers == null || !_eventControllers.isActivated)
-        {
-            for(int i = 0; i < 4; i++)
-            {
-                if (_controllers[i].isActivated) _eventControllers = _controllers[i];
-            }
-        }
+    { 
+
     }
 
     public void CurrentEventUpdate(RectTransform rect)
@@ -46,29 +43,4 @@ public class ControllerManager : MonoBehaviour
             _eventControllers.ViewEvent(rect);
         }
     }
-
-    ///// <summary>
-    ///// <para>0 == 이동</para>
-    ///// <para>1 == 닫기</para>
-    ///// <para>2 == 최대화</para>
-    ///// 3 == 최소화
-    ///// </summary>
-    ///// <param name="type"></param>
-    //public void setEvent(int type)
-    //{
-    //    eventControllers[type] = controllers[type].TriggerEvent();
-    //}
-
-    //public bool isActivatedEvent(int type)
-    //{
-    //    return eventControllers[type] != null;
-    //}
-
-    //public void getCurrentEvent(RectTransform rect)
-    //{
-    //    for (int i = 0; i < controllers.Length; i++)
-    //    {
-    //        if (eventControllers[i] != null) eventControllers[i].ViewEvent(rect);
-    //    }
-    //}
 }

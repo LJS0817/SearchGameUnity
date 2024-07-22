@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
         {
             viewParent.GetChild(i).name = iconParent.GetChild(i).name = Extend.ViewList[i];
 
-            GameObject viewScript = new GameObject(name);
+            GameObject viewScript = new GameObject(Extend.ViewList[i]);
             viewScript.AddComponent<App>().ConnectData(viewParent.GetChild(i), iconParent.GetChild(i));
+            viewScript.transform.SetParent(ViewPool.transform);
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Extended
         public static readonly string[] ViewList = new string[1] { "Test" };
 
         public delegate void dEvent();
+        public delegate void EventWithVector2(Vector2 vec);
     }
 }

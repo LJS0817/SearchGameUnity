@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Extended;
 
 public class AppIcon : MonoBehaviour, IPointerClickHandler
 {
@@ -9,11 +10,17 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
     //Image imageIcon;
 
 
+    private App _app;
+
+    public void Connect(App a)
+    {
+        _app = a;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

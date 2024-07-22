@@ -12,6 +12,9 @@ public class App : MonoBehaviour
     public void ConnectData(Transform v, Transform i)
     {
         _icon = i.GetComponent<AppIcon>();
+        _icon.Connect(this);
+
         _content = v.GetComponent<View>();
+        _content.Connect(this);
     }
 }

@@ -14,33 +14,43 @@ public class Maximum : ViewController
 
     bool _isFull;
 
-    protected override void init()
+    public override void init(string str)
     {
-        base.init();
+        base.init(str);
         _isFull = false;
         _currentSize = _currentPos = Vector2.zero;
         _fulLScreen = new Vector2(Screen.width, Screen.height);
         _targetSize = Extend.DEFAULT_SIZE;
+
+        //DisableEvent += () => {
+        //    _isFull = false;
+        //    _currentPos = Vector2.zero;
+        //    isActivated = true;
+        //    _targetSize = _currentSize;
+        //};
     }
 
     public override void ViewEvent(RectTransform rect)
     {
-        if (_isFull && _currentSize == Vector2.zero)
+        if(isActivated)
         {
-            _currentSize = rect.sizeDelta;
-            _currentPos = rect.position;
-            rect.position = Vector3.zero;
-        } 
-        if(!_isFull && _currentPos != Vector2.zero)
-        {
-            rect.position = _currentPos;
-            _currentPos = Vector2.zero;
-        }
-        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, _targetSize, 9f * Time.deltaTime);
-        if(Mathf.Abs(rect.sizeDelta.magnitude - _targetSize.magnitude) < 10f)
-        {
-            isActivated = false;
-            rect.sizeDelta = _targetSize;
+            if (_isFull && _currentSize == Vector2.zero)
+            {
+                _currentSize = rect.sizeDelta;
+                _currentPos = rect.position;
+                rect.position = Vector3.zero;
+            }
+            if (!_isFull && _currentPos != Vector2.zero)
+            {
+                rect.position = _currentPos;
+                _currentPos = Vector2.zero;
+            }
+            rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, _targetSize, 9f * Time.deltaTime);
+            if (Mathf.Abs(rect.sizeDelta.magnitude - _targetSize.magnitude) < 10f)
+            {
+                isActivated = false;
+                rect.sizeDelta = _targetSize;
+            }
         }
     }
 
