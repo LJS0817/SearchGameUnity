@@ -18,7 +18,7 @@ public class View : MonoBehaviour
         _rect = GetComponent<RectTransform>();
         _controller = transform.GetChild(0).GetComponent<ControllerManager>();
     }
-
+     
     private void Update()
     {
         _controller.CurrentEventUpdate(_rect);

@@ -375,7 +375,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
-  Id: 
 --- !u!1 &199951221
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +465,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
-  Id: 
 --- !u!1 &205999873
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,12 +550,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 205999873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39c653fb21a5e1f479996714712b2b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c62cc6d80debab4abd51d80be9d4107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
-  Id: 
 --- !u!1 &338854738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1241,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetColor: {r: 0, g: 0, b: 0, a: 0}
   isActivated: 0
-  Id: 
 --- !u!1 &2045911803
 GameObject:
   m_ObjectHideFlags: 0
