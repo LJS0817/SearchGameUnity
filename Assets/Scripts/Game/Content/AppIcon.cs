@@ -9,7 +9,7 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
     //Image stateIcon;
     //Image imageIcon;
 
-
+    private Animator _ani;
     private App _app;
 
     public void Connect(App a)
@@ -20,7 +20,7 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-
+        _ani = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -30,6 +30,15 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData data)
+    {
+        if (!_app.GetEnable())
+        {
+            _app.SendEvent(true, "enable");
+            _ani.SetTrigger("Change"); 
+        }
+    }
+
+    public void EventListener()
     {
 
     }

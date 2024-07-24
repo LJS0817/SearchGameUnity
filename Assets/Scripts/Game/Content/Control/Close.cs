@@ -19,9 +19,9 @@ public class Close : ViewController
         if (isActivated)
         {
             rect.position = Vector2.Lerp(rect.position, _iconPos, 10f * Time.deltaTime);
-            rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, Extend.ZERO, 10f * Time.deltaTime);
+            rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, Extend.MIN_SIZE, 10f * Time.deltaTime);
             if (Mathf.Abs(rect.position.magnitude - _iconPos.magnitude) +
-                Mathf.Abs(rect.sizeDelta.magnitude - Extend.ZERO.magnitude) < 1f)
+                Mathf.Abs(rect.sizeDelta.magnitude - Extend.MIN_SIZE.magnitude) < 1f)
             {
                 rect.position = Extend.DISABLED_POSITION;
                 isActivated = false;

@@ -28,4 +28,9 @@ public class View : MonoBehaviour
     {
         _app = a;
     }
+
+    public void EventListener()
+    {
+
+    }
 }
