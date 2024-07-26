@@ -12,9 +12,7 @@ namespace Extended
         public static readonly Vector3 DISABLED_POSITION = new Vector3(-100000, -100000, 0);
         public static readonly Vector2 DEFAULT_PIVOT = new Vector2(0.5f, 0.5f);
 
-        public static readonly string[] ViewList = new string[1] { "Test" };
 
         public delegate void dEvent();
-        public delegate void EventWithVector2(Vector2 vec);
     }
 }

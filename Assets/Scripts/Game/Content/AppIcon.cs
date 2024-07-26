@@ -11,6 +11,7 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
 
     private Animator _ani;
     private App _app;
+    private Extend.dEvent _event;
 
     public void Connect(App a)
     {
@@ -31,16 +32,19 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData data)
     {
-        if (!_app.GetEnable())
-        {
-            _app.SendEvent(true, "enable");
-            _ani.SetTrigger("Change"); 
-        }
+        if(!_app.GetEnable()) _ani.SetTrigger("Change");
+        _event();
     }
 
-    public void EventListener()
+    public void SetOnClickListener(Extend.dEvent e)
     {
+        _event = e;
+    }
 
+    public void Disable()
+    {
+        _ani.SetTrigger("Change");
+        _app.SetEnable(false);
     }
 
     //public void OnPointerClick(PointerEventData data)

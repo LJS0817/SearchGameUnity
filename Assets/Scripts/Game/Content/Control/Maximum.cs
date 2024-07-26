@@ -32,25 +32,22 @@ public class Maximum : ViewController
 
     public override void ViewEvent(RectTransform rect)
     {
-        if(isActivated)
+        if (_isFull && _currentSize == Vector2.zero)
         {
-            if (_isFull && _currentSize == Vector2.zero)
-            {
-                _currentSize = rect.sizeDelta;
-                _currentPos = rect.position;
-                rect.position = Vector3.zero;
-            }
-            if (!_isFull && _currentPos != Vector2.zero)
-            {
-                rect.position = _currentPos;
-                _currentPos = Vector2.zero;
-            }
-            rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, _targetSize, 9f * Time.deltaTime);
-            if (Mathf.Abs(rect.sizeDelta.magnitude - _targetSize.magnitude) < 10f)
-            {
-                isActivated = false;
-                rect.sizeDelta = _targetSize;
-            }
+            _currentSize = rect.sizeDelta;
+            _currentPos = rect.position;
+            rect.position = Vector3.zero;
+        }
+        if (!_isFull && _currentPos != Vector2.zero)
+        {
+            rect.position = _currentPos;
+            _currentPos = Vector2.zero;
+        }
+        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, _targetSize, 9f * Time.deltaTime);
+        if (Mathf.Abs(rect.sizeDelta.magnitude - _targetSize.magnitude) < 10f)
+        {
+            isActivated = false;
+            rect.sizeDelta = _targetSize;
         }
     }
 

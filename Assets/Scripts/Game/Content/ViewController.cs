@@ -21,9 +21,15 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [HideInInspector]
     public Extend.dEvent ActiveEvent;
-    [HideInInspector]
-    public Extend.dEvent DisableEvent;
 
+    public virtual void init(string str)
+    {
+        _id = str;
+        _image = GetComponent<Image>();
+        TargetColor = _sourceColor = _image.color;
+        _needChange = false;
+        isActivated = false;
+    }
 
     void Update()
     {
@@ -38,14 +44,12 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    public virtual void init(string str) 
+    public string GetId() { return _id; }
+
+    public void Activate()
     {
-        _id = str;
-        _image = GetComponent<Image>();
-        TargetColor = _sourceColor = _image.color;
-        _needChange = false;
-        isActivated = false;
-        DisableEvent = () => { };
+        isActivated = true;
+        ActiveEvent();
     }
 
     public void AddEvent(Extend.dEvent e)
@@ -69,8 +73,7 @@ public class ViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public virtual void OnPointerUp(PointerEventData data)
     {
-        isActivated = true;
-        ActiveEvent();
+        Activate();
     }
 
     public virtual void ViewEvent(RectTransform rect) { }

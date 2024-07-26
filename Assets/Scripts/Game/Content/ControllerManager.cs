@@ -1,3 +1,4 @@
+using Extended;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,17 @@ using UnityEngine.UIElements;
 
 public class ControllerManager : MonoBehaviour
 {
-    ViewController[] _controllers;
-    ViewController _eventControllers;
+    private ViewController[] _controllers;
+    private ViewController _eventController;
+
+    private Extend.dEvent _minEvent;
+    private Extend.dEvent _closeEvent;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        _eventControllers = null;
+        _eventController = null;
 
         _controllers = new ViewController[4];
         for (int i = 0; i < 4; i++)
@@ -23,11 +28,12 @@ public class ControllerManager : MonoBehaviour
 
             int idx = i;
             _controllers[i].AddEvent(() => {
-                if (_eventControllers != null) _eventControllers.DisableEvent();
-                _eventControllers = _controllers[idx];
+                _eventController = _controllers[idx];
+                if (idx == 1) _closeEvent();
+                else if (idx == 3) _minEvent();
             });
             if (i == 0) continue;
-            _controllers[i].TargetColor = (i == 1) ? Extended.Extend.closeColor : Extended.Extend.hoverColor;
+            _controllers[i].TargetColor = (i == 1) ? Extend.closeColor : Extend.hoverColor;
         }
     }
 
@@ -38,9 +44,31 @@ public class ControllerManager : MonoBehaviour
 
     public void CurrentEventUpdate(RectTransform rect)
     {
-        if(_eventControllers != null)
+        if(_eventController != null && _eventController.isActivated)
         {
-            _eventControllers.ViewEvent(rect);
+            _eventController.ViewEvent(rect);
         }
+    }
+
+    /// <summary>
+    /// 0 : Move
+    /// <para>1, 3 : Close</para>
+    /// <para>2 : Max</para>
+    /// </summary>
+    /// <param name="n"></param>
+    public void ActivateController(int n)
+    {
+        _controllers[n].Activate();
+    }
+
+    public void ResetController()
+    {
+        _eventController = null;
+    }
+
+    public void SetEvent(Extend.dEvent m, Extend.dEvent c)
+    {
+        _minEvent = m;
+        _closeEvent = c;
     }
 }
