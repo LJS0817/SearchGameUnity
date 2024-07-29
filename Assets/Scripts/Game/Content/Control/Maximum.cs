@@ -21,13 +21,6 @@ public class Maximum : ViewController
         _currentSize = _currentPos = Vector2.zero;
         _fulLScreen = new Vector2(Screen.width, Screen.height);
         _targetSize = Extend.DEFAULT_SIZE;
-
-        //DisableEvent += () => {
-        //    _isFull = false;
-        //    _currentPos = Vector2.zero;
-        //    isActivated = true;
-        //    _targetSize = _currentSize;
-        //};
     }
 
     public override void ViewEvent(RectTransform rect)

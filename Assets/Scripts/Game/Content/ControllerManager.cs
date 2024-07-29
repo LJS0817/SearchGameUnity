@@ -32,7 +32,10 @@ public class ControllerManager : MonoBehaviour
                 if (idx == 1) _closeEvent();
                 else if (idx == 3) _minEvent();
             });
-            if (i == 0) continue;
+            if (i == 0) {
+                _controllers[0].GetComponent<Top>().ConnectRectTransform(transform.parent.GetComponent<RectTransform>());
+                continue;
+            }
             _controllers[i].TargetColor = (i == 1) ? Extend.closeColor : Extend.hoverColor;
         }
     }

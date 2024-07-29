@@ -52,12 +52,6 @@ public class View : MonoBehaviour
         }
     }
 
-    //private void SetCurrentState(Vector2 pos, Vector2 size)
-    //{
-    //    _curPosition = pos;
-    //    _curSize = size;
-    //    Debug.Log(pos + ",   " + size);
-    //}
     private void SetCurrentState()
     {
         _curPosition = _rect.position;
