@@ -10,7 +10,7 @@ public class View : MonoBehaviour
     private ControllerManager _controller;
     private App _app;
     private Animator _ani;
-
+   
     private Vector2 _curPosition;
     private Vector2 _curSize;
     private Vector2 _iconPos;
@@ -60,6 +60,7 @@ public class View : MonoBehaviour
 
     public void Connect(App a, Vector2 pos)
     {
+        transform.position = Extend.DISABLED_POSITION;
         _app = a;
         _iconPos = pos;
     }
@@ -88,7 +89,7 @@ public class View : MonoBehaviour
 
     public void SetCloseEventListener(Extend.dEvent e)
     {
-        _controller = transform.GetChild(0).GetComponent<ControllerManager>();
+        _controller = transform.GetChild(1).GetComponent<ControllerManager>();
         _controller.SetEvent(() => { ChangeState(); }, e);
     }
 }

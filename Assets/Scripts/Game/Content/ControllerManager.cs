@@ -19,11 +19,17 @@ public class ControllerManager : MonoBehaviour
     {
         _eventController = null;
 
-        _controllers = new ViewController[4];
-        for (int i = 0; i < 4; i++)
+        _controllers = new ViewController[5];
+        for (int i = 0; i < _controllers.Length; i++)
         {
-            _controllers[i] = (i == 0) ? transform.GetChild(0).GetComponent<ViewController>() :
-                transform.GetChild(1).GetChild(i - 1).GetComponent<ViewController>();
+            if (i == 0) {
+                _controllers[i] = transform.GetChild(0).GetComponent<ViewController>();
+            } else if(i < 4) {
+                _controllers[i] = transform.GetChild(1).GetChild(i - 1).GetComponent<ViewController>();
+            } else {
+                _controllers[i] = transform.parent.GetChild(0).GetComponent<ViewController>();
+                _controllers[i].GetComponent<DragSide>().ConnectRectTransform(transform.parent.GetComponent<RectTransform>());
+            }
             _controllers[i].init(transform.parent.name);
 
             int idx = i;
@@ -32,10 +38,7 @@ public class ControllerManager : MonoBehaviour
                 if (idx == 1) _closeEvent();
                 else if (idx == 3) _minEvent();
             });
-            if (i == 0) {
-                _controllers[0].GetComponent<Top>().ConnectRectTransform(transform.parent.GetComponent<RectTransform>());
-                continue;
-            }
+            if (i == 0 || i == 4) continue;
             _controllers[i].TargetColor = (i == 1) ? Extend.closeColor : Extend.hoverColor;
         }
     }
