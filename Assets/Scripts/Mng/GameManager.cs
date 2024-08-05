@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Extended;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject ViewPool;
-    readonly string[] _viewList = new string[1] { "Test" };
+    readonly string[] _viewList = new string[2] { "Web", "Map" };
 
     private void Awake()
-    {
+    { 
         Transform viewParent = GameObject.Find("/Canvas").transform;
         Transform iconParent = GameObject.Find("/Canvas/AppList").transform;
         for (int i = 0; i < _viewList.Length; i++)

@@ -6,17 +6,20 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    private RectTransform _rect;
-    private ControllerManager _controller;
-    private App _app;
-    private Animator _ani;
+    protected RectTransform _rect;
+    protected ControllerManager _controller;
+    protected App _app;
+    protected Animator _ani;
    
     private Vector2 _curPosition;
     private Vector2 _curSize;
     private Vector2 _iconPos;
     private bool _animateOpen;
 
-    private bool _enable;
+    protected bool _enable;
+
+    protected virtual void init() { }
+    protected virtual void update() { }
 
     private void Start()
     {
@@ -28,15 +31,19 @@ public class View : MonoBehaviour
         _curPosition = Vector2.zero;
         _curSize = Extend.DEFAULT_SIZE;
         _animateOpen = false;
+        _controller = transform.GetChild(1).GetComponent<ControllerManager>();
+
+        init();
     }
 
     private void Update()
     {
         _controller.CurrentEventUpdate(_rect);
-        OpenView();
+        openView();
+        update();
     }
 
-    private void OpenView()
+    private void openView()
     {
         if(_animateOpen)
         {
@@ -52,7 +59,7 @@ public class View : MonoBehaviour
         }
     }
 
-    private void SetCurrentState()
+    private void setCurrentState()
     {
         _curPosition = _rect.position;
         _curSize = _rect.sizeDelta;
@@ -74,7 +81,7 @@ public class View : MonoBehaviour
             if(isIcon) _controller.ActivateController(3);
             if (!isIcon)
             {
-                if (!_animateOpen) SetCurrentState();
+                if (!_animateOpen) setCurrentState();
                 _enable = false; 
             }
         } 
@@ -89,7 +96,7 @@ public class View : MonoBehaviour
 
     public void SetCloseEventListener(Extend.dEvent e)
     {
-        _controller = transform.GetChild(1).GetComponent<ControllerManager>();
+        if(_controller == null) _controller = transform.GetChild(1).GetComponent<ControllerManager>();
         _controller.SetEvent(() => { ChangeState(); }, e);
     }
 }
