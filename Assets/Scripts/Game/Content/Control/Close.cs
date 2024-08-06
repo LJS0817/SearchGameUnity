@@ -17,7 +17,7 @@ public class Close : ViewController
     public override void ViewEvent(RectTransform rect)
     {
         rect.position = Vector2.Lerp(rect.position, _iconPos, 35f * Time.deltaTime);
-        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, Extend.MIN_SIZE, 35f * Time.deltaTime);
+        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, Vector2.zero, 35f * Time.deltaTime);
         if (Mathf.Abs(rect.position.magnitude - _iconPos.magnitude) +
             Mathf.Abs(rect.sizeDelta.magnitude - Extend.MIN_SIZE.magnitude) < 1f)
         {

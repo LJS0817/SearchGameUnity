@@ -7,7 +7,7 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     protected RectTransform _rect;
-    protected ControllerManager _controller;
+    public ControllerManager _controller;
     protected App _app;
     protected Animator _ani;
    
@@ -18,11 +18,7 @@ public class View : MonoBehaviour
 
     protected bool _enable;
 
-    protected virtual void init() { }
-    protected virtual void update() { }
-
-    private void Start()
-    {
+    protected virtual void init() {
         _enable = false;
 
         _rect = GetComponent<RectTransform>();
@@ -32,8 +28,12 @@ public class View : MonoBehaviour
         _curSize = Extend.DEFAULT_SIZE;
         _animateOpen = false;
         _controller = transform.GetChild(1).GetComponent<ControllerManager>();
+    }
+    protected virtual void update() { }
 
-        init();
+    private void Start()
+    {
+
     }
 
     private void Update()
@@ -67,9 +67,11 @@ public class View : MonoBehaviour
 
     public void Connect(App a, Vector2 pos)
     {
-        transform.position = Extend.DISABLED_POSITION;
+        init();
         _app = a;
         _iconPos = pos;
+        transform.position = pos;
+        _rect.sizeDelta = Vector2.zero;
     }
 
     public void ChangeState(bool isIcon=false)

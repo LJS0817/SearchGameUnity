@@ -46,19 +46,4 @@ public class AppIcon : MonoBehaviour, IPointerClickHandler
         _ani.SetTrigger("Change");
         _app.SetEnable(false);
     }
-
-    //public void OnPointerClick(PointerEventData data)
-    //{
-    //    view.SetEnable();
-    //    if (!getEnable())
-    //    {
-    //        SetActive(true);
-    //        Minimum min = GameObject.Find("/Canvas/" + name + "/TopBar/Controller/Min").GetComponent<Minimum>();
-    //        min.SetIconPosition(transform.position, view.SaveState, view.SetDisable);
-    //        Close close = GameObject.Find("/Canvas/" + name + "/TopBar/Controller/Close").GetComponent<Close>();
-    //        close.SetCloseEvent(view.SaveState, () => { SetActive(false); });
-    //        Top top = GameObject.Find("/Canvas/" + name + "/topbar/move").GetComponent<Top>();
-    //        top.setEvent(MoveIfWasFullEvent);
-    //    }
-    //}
 }
