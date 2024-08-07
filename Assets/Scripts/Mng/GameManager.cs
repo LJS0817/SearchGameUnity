@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject ViewPool;
     public List<GameObject> Prefabs;
-    readonly string[] _viewList = new string[2] { "SMS", "Map" };
+    readonly string[] _viewList = new string[3] { "SMS", "Map", "Photo" };
 
     private void Awake()
     { 
