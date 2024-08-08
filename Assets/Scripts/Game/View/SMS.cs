@@ -12,7 +12,13 @@ public class SMS : View
     ScrollRect _profileScrollView;
     ScrollRect _detailScrollView;
 
-    GameObject _profileObject;
+    Animator _ContentAni;
+
+    SMS_ProfileLong _longProfile;
+
+    public GameObject ProfileObject;
+    public GameObject ChatCardObject;
+    public GameObject MyChatCardObject;
 
     readonly string[] _userList = { "friend", "mom" };
     List<SMS_User> _users;
@@ -25,7 +31,8 @@ public class SMS : View
         _profileScrollView = _profiles.GetComponent<ScrollRect>();
         _detailScrollView = _detail.GetComponent<ScrollRect>();
 
-        _profileObject = GameObject.Find("GameManager").GetComponent<GameManager>().Prefabs[0];
+        _ContentAni = transform.GetChild(2).GetComponent<Animator>();
+        _longProfile = _ContentAni.transform.GetChild(2).GetComponent<SMS_ProfileLong>();
 
         addProfile();
 
@@ -36,27 +43,39 @@ public class SMS : View
     {
         if(_enable)
         {
-            if (_rect.sizeDelta.x > 1100 && _profiles.sizeDelta.x == 210f)
+            if(_ContentAni.GetBool("Show"))
             {
-                _profiles.sizeDelta = addX(30f, _profiles.sizeDelta);
-                _detail.sizeDelta = addX(-30f, _detail.sizeDelta);
-            } 
-            else if (_rect.sizeDelta.x <= 1100 && _rect.sizeDelta.x > 750 && _profiles.sizeDelta.x != 210f)
-            {
-                if (_profiles.sizeDelta.x == 180f)
+                if (_rect.sizeDelta.x > 1100 && _profiles.sizeDelta.x == 210f)
                 {
                     _profiles.sizeDelta = addX(30f, _profiles.sizeDelta);
                     _detail.sizeDelta = addX(-30f, _detail.sizeDelta);
-                } else if (_profiles.sizeDelta.x == 240f)
+                }
+                else if (_rect.sizeDelta.x <= 1100 && _rect.sizeDelta.x > 750 && _profiles.sizeDelta.x != 210f)
+                {
+                    if (_profiles.sizeDelta.x == 180f)
+                    {
+                        _profiles.sizeDelta = addX(30f, _profiles.sizeDelta);
+                        _detail.sizeDelta = addX(-30f, _detail.sizeDelta);
+                    }
+                    else if (_profiles.sizeDelta.x == 240f)
+                    {
+                        _profiles.sizeDelta = addX(-30f, _profiles.sizeDelta);
+                        _detail.sizeDelta = addX(30f, _detail.sizeDelta);
+                    }
+                }
+                else if (_rect.sizeDelta.x <= 750 && _profiles.sizeDelta.x != 180f)
                 {
                     _profiles.sizeDelta = addX(-30f, _profiles.sizeDelta);
                     _detail.sizeDelta = addX(30f, _detail.sizeDelta);
                 }
-            }
-            else if(_rect.sizeDelta.x <= 750 && _profiles.sizeDelta.x != 180f)
+                else if (_rect.sizeDelta.x <= 450)
+                {
+                    _ContentAni.SetBool("Show", false);
+                }
+            }  
+            else if(_rect.sizeDelta.x > 450)
             {
-                _profiles.sizeDelta = addX(-30f, _profiles.sizeDelta);
-                _detail.sizeDelta = addX(30f, _detail.sizeDelta);
+                _ContentAni.SetBool("Show", true);
             }
 
         }
@@ -69,11 +88,14 @@ public class SMS : View
 
     void addProfile()
     {
-        for(int i = 0; i < _userList.Length; i++)
+        Destroy(_profileScrollView.content.GetChild(0).gameObject);
+        for (int i = 0; i < _userList.Length; i++)
         {
-            GameObject obj = GameObject.Instantiate(_profileObject);
+            GameObject obj = GameObject.Instantiate(ProfileObject);
             obj.transform.SetParent(_profileScrollView.content);
             obj.GetComponent<SMS_User>().Connect(i, _userList[i]);
+            int idx = i;
+            obj.GetComponent<Button>().onClick.AddListener(() => { _longProfile.SetData(idx, _userList[idx]); });
         }
         _profileScrollView.content.sizeDelta = new Vector2(_profileScrollView.content.sizeDelta.x, 50f * _userList.Length);
     }
